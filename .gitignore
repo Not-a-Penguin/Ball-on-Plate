@@ -1,0 +1,4 @@
+microController/debug.cfg
+microController/debug_custom.json
+microController/esp32.svd
+microController/esp32s3.svd
