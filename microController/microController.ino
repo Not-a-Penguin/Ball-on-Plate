@@ -1,21 +1,28 @@
 //#include <Arduino.h>
 #include "touchScreen.h"
+#include "servoControl.h"
 
-//Pins in the order: upperLeft upperRight lowerLeft lowerRight sensorPin
+//TODO: implement indicator to see actual sampling interval 
+//TODO: implement self-calibration for screen at startup to set servo start position
+
+//instantiate servo control. Attach is done inside constructor
+ServoControl servos(24, 25, 26);
+
+
+//Pins in the order: upperLeft upperRight lowerLeft lowerRight sensorPin. Internally the library will set the pinMode accordingly.
 TouchScreen screen(27, 26, 32, 33, 25);
-//Internally the library will set the pinMode accordingly.
 
 
 //struct where the coordinate is returned
+//The srtuct is defined in the touchScreen library
 screenCoordinates coordinates;
-screenCoordinates previousCoordinates;
-
-//TODO: implement indicator to see actual sampling interval 
-//TODO: implement self-calibration for screen at startup
 
 void setup(){
   //Initialize serial connection
   Serial.begin(115200);
+
+  //Optionally, move servos to a predetermined start position
+  servos.startPosition(90, 90, 90);
   //screen.setScreenDelay(30); 
   
 }
@@ -39,7 +46,5 @@ void loop(){
   Serial.print(",");
   Serial.print("y:");
   Serial.println(coordinates.y);
-
-  previousCoordinates = coordinates;
   // sendXYData(x, y); */
 }

@@ -37,8 +37,6 @@ class TouchScreen{
     //variables for calculating when the screen should be read
     int _interval= 30; //in milliseconds -> can be set in setScreenDelay()
     unsigned long _previousMillis = 0;
-  
-    //Current values for x and y. 
 
     //Struct where current reading is stored. Accessed by the return of getCoordinates()
     screenCoordinates _currentScreenCoordinates;

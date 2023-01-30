@@ -14,26 +14,11 @@ TouchScreen::TouchScreen(int upperLeft, int upperRight, int lowerLeft, int lower
 
   this->setPins();
   
-}
+};
 
 TouchScreen::~TouchScreen(){/*(づ｡◕‿‿◕｡)づ */}
 
 screenCoordinates TouchScreen::getCoordinates(){ 
-  
-  /*  
-   *  In order to read the coordinates, the corners of the screen must be set to HIGH or LOW 
-   *  in a certain way to create a voltage gradient across the screen, then when a touch occurs
-   *  and the voltage divider is made, the voltage across that gradient with change and can be read
-   *  with the middle pin.
-   *  
-   *  The corner signals are explained in the table bellow
-   *   
-   *   ______________________________________________________________________
-   * |  function      | upper-left | lower-left | upper-right | lower-right |
-   * |read x-position |     Vss    |    Vss     |      Vdd    |     Vdd     |
-   * |read y-position |     Vss    |    Vdd     |      Vss    |     Vdd     |
-   * |______________________________________________________________________|
-   */
 
   /* 
    *  Since both coordinates can't be read at the same time, the readings are done
@@ -58,10 +43,25 @@ screenCoordinates TouchScreen::getCoordinates(){
 
   return this->_currentScreenCoordinates; 
 
-}
+};
 
 int TouchScreen::readCoordinate(String coordinate){
 
+  /*  
+   *  In order to read the coordinates, the corners of the screen must be set to HIGH or LOW 
+   *  in a certain way to create a voltage gradient across the screen, then when a touch occurs
+   *  and the voltage divider is made, the voltage across that gradient with change and can be read
+   *  with the middle pin.
+   *  
+   *  The corner signals are explained in the table bellow
+   *   
+   *   ______________________________________________________________________
+   * |  function      | upper-left | lower-left | upper-right | lower-right |
+   * |read x-position |     Vss    |    Vss     |      Vdd    |     Vdd     |
+   * |read y-position |     Vss    |    Vdd     |      Vss    |     Vdd     |
+   * |______________________________________________________________________|
+   */
+   
   if(coordinate == "x"){
     digitalWrite(this->_upperLeftPin, HIGH);
     digitalWrite(this->_lowerLeftPin, HIGH);
@@ -79,15 +79,15 @@ int TouchScreen::readCoordinate(String coordinate){
   }
 
   return analogRead(this->_sensorPin);
-}
+};
 
 void TouchScreen::setScreenDelay(int milliseconds){
   this->_interval = milliseconds;  
-}
+};
 
 void TouchScreen::alternateReading(){
   this->_alternateReading = !this->_alternateReading;  
-}
+};
 
 void TouchScreen::setPins(){
 
@@ -99,4 +99,4 @@ void TouchScreen::setPins(){
   pinMode(this->_lowerRightPin, OUTPUT);
 
   pinMode(this->_sensorPin, INPUT);  
-}
+};
